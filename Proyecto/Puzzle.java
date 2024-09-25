@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Puzzle {
     private Tile[][] tiles;  // Matriz para almacenar las baldosas
-    private int rows;        // Número de filas del rompecabezas
-    private int columns;     // Número de columnas del rompecabezas
+    private int h;        // Número de filas del rompecabezas
+    private int w;     // Número de columnas del rompecabezas
     private boolean[][] glue; // Matriz que indica si las baldosas están pegadas
     private boolean isVisible; // Indica si el rompecabezas es visible
     private int[][] starting; // Disposición inicial del rompecabezas
@@ -22,10 +22,10 @@ public class Puzzle {
      * @param w número de columnas del rompecabezas
      */
     public Puzzle(int h, int w) {
-        this.rows = h;
-        this.columns = w;
-        tiles = new Tile[rows][columns];  // Inicializa la matriz de baldosas
-        this.glue = new boolean[rows][columns]; // Inicializa la matriz de pegamento
+        this.h = h;
+        this.w = w;
+        tiles = new Tile[h][w];  // Inicializa la matriz de baldosas
+        this.glue = new boolean[h][w]; // Inicializa la matriz de pegamento
         this.isVisible = true; // Establece la visibilidad inicial
     }
     
@@ -36,13 +36,13 @@ public class Puzzle {
      *               Se asume que un valor de 0 significa que no hay baldosa en esa posición.
      */
     public Puzzle(int[][] ending) {
-        int rows = ending.length;
-        int columns = ending[0].length;
-        this.tiles = new Tile[rows][columns];
+        int h = ending.length;
+        int w = ending[0].length;
+        this.tiles = new Tile[h][w];
 
         // Inicializa las baldosas en función de la matriz proporcionada
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
                 if (ending[row][col] != 0) { // Asumiendo que 0 significa que no hay baldosa
                     String color = "black"; // Define un color por defecto o alguna lógica para el color
                     this.tiles[row][col] = new Tile(row, col, color);
@@ -59,13 +59,13 @@ public class Puzzle {
      * @param ending una matriz de enteros que representa las posiciones finales de las baldosas.
      */
     public Puzzle(int[][] starting, int[][] ending) {
-        int rows = starting.length;
-        int columns = starting[0].length;
-        this.tiles = new Tile[rows][columns];
+        int h = starting.length;
+        int w = starting[0].length;
+        this.tiles = new Tile[h][w];
 
         // Inicializa las baldosas en función de la matriz de inicio
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
                 if (starting[row][col] != 0) { // Asumiendo que 0 significa que no hay baldosa
                     String color = "black"; // Define un color por defecto o alguna lógica para el color
                     this.tiles[row][col] = new Tile(row, col, color);
@@ -83,7 +83,7 @@ public class Puzzle {
      * @param color color de la baldosa
      */
     public void addTile(int row, int column, String color) {
-        if (row >= 0 && row < rows && column >= 0 && column < columns) {
+        if (row >= 0 && row < h && column >= 0 && column < w) {
             Tile tile = new Tile(row, column, color);
             tiles[row][column] = tile; // Añade la baldosa en la posición especificada
         } else {
@@ -145,7 +145,7 @@ public class Puzzle {
     public void addGlue(int row, int column) {
         if (isValidPosition(row, column) && tiles[row][column] != null && !glue[row][column]) {
             glue[row][column] = true; // Marca la posición como pegada
-            // Aquí se puede agregar lógica para representar visualmente el pegante
+            // Nos toca implementarlo
         } else {
             System.err.println("Posición no válida para agregar pegante"); // Mensaje de error
         }
@@ -160,7 +160,7 @@ public class Puzzle {
     public void deleteGlue(int row, int column) {
         if (isValidPosition(row, column) && tiles[row][column] != null && glue[row][column]) {
             glue[row][column] = false; // Marca la posición como no pegada
-            // Aquí se puede agregar lógica para representar visualmente la eliminación del pegante
+            // Nos toca implementarlo
         } else {
             System.err.println("Posición no válida para eliminar pegante"); // Mensaje de error
         }
@@ -172,7 +172,7 @@ public class Puzzle {
      * @param direction dirección en la que se inclinará el rompecabezas (ej. 'N', 'S', 'E', 'O')
      */
     public void tilt(char direction) {
-        // Aquí se puede agregar lógica para inclinar el rompecabezas en la dirección establecida
+        // Nos toca implementarlo
     }
     
     /**
@@ -193,10 +193,10 @@ public class Puzzle {
      * @return una matriz de enteros que representa la disposición actual del rompecabezas
      */
     public int[][] actualArrangement() {
-        int[][] arrangement = new int[rows][columns]; // Matriz para almacenar la disposición actual
+        int[][] arrangement = new int[h][w]; // Matriz para almacenar la disposición actual
     
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
                 if (tiles[row][col] != null) {
                     arrangement[row][col] = 1; // Suponiendo que 1 representa la presencia de una baldosa
                 } else {
@@ -212,8 +212,8 @@ public class Puzzle {
      * Hace visibles todas las baldosas en el rompecabezas.
      */
     public void makeVisible() {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
                 if (tiles[row][col] != null) {
                     tiles[row][col].makeVisible();  // Hace visible la baldosa
                 }
@@ -225,8 +225,8 @@ public class Puzzle {
      * Hace invisibles todas las baldosas en el rompecabezas.
      */
     public void makeInvisible() {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
                 if (tiles[row][col] != null) {
                     tiles[row][col].makeInvisible();  // Hace invisible la baldosa
                 }
@@ -244,8 +244,8 @@ public class Puzzle {
         System.out.println("Reiniciando el estado del rompecabezas...");
     
         // Vaciar la matriz de baldosas
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
                 tiles[row][col] = null; // Eliminar las baldosas
                 starting[row][col] = 0;
                 ending[row][col] = 0;
@@ -253,7 +253,7 @@ public class Puzzle {
         }
     
         // Vaciar la matriz de pegamento
-        for (int row = 0; row < rows; row++) {
+        for (int row = 0; row < h; row++) {
             Arrays.fill(glue[row], false); // Establecer todo a false
         }
     
@@ -272,7 +272,7 @@ public class Puzzle {
      * @return true si la posición es válida, false en caso contrario
      */
     private boolean isValidPosition(int row, int column) {
-        return row >= 0 && row < rows && column >= 0 && column < columns;
+        return row >= 0 && row < h && column >= 0 && column < w;
     }
     
     /**
