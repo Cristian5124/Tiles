@@ -1,1 +1,0 @@
-Archivos base del proyecto.
