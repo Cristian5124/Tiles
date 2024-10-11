@@ -83,12 +83,14 @@ public class Puzzle {
      * @param color color de la baldosa
      */
     public void addTile(int row, int column, String color) {
-        if (row >= 0 && row < h && column >= 0 && column < w) {
-            Tile tile = new Tile(row, column, color);
-            tiles[row][column] = tile; // Añade la baldosa en la posición especificada
-            makeVisible();
-        } else {
-            System.out.println("Posición inválida."); // Mensaje de error si la posición no es válida
+        if (isValidPosition(row, column)) {
+            if (tiles[row][column] == null) {
+                Tile tile = new Tile(row, column, color);
+                tiles[row][column] = tile; // Añade la baldosa en la posición especificada
+                makeVisible();
+            } else {
+                System.out.println("Posición inválida."); // Mensaje de error si la posición no es válida
+            }
         }
     }
 
@@ -127,10 +129,14 @@ public class Puzzle {
         if (isValidPosition(newRow, newColumn) && isValidPosition(currentRow, currentColumn)) {
             Tile tile = tiles[currentRow][currentColumn];
             if (tile != null) {
-                tile.moveTo(newRow, newColumn); // Mueve la baldosa a la nueva posición
-                tiles[newRow][newColumn] = tile; // Coloca la baldosa en la nueva posición
-                tiles[currentRow][currentColumn] = null;  // Vacía la posición anterior
-                makeVisible();
+                if (tiles[newRow][newColumn] == null) {
+                    tile.moveTo(newRow, newColumn); // Mueve la baldosa a la nueva posición
+                    tiles[newRow][newColumn] = tile; // Coloca la baldosa en la nueva posición
+                    tiles[currentRow][currentColumn] = null;  // Vacía la posición anterior
+                    makeVisible();
+                } else {
+                    System.out.println("Ya existe una baldosa en la posición nueva"); // Mensaje si otra baldosa no deja mover
+                }
             } else {
                 System.out.println("No hay baldosa en esta posición."); // Mensaje si no hay baldosa
             }
