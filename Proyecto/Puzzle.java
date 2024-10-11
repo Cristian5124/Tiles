@@ -89,8 +89,10 @@ public class Puzzle {
                 tiles[row][column] = tile; // Añade la baldosa en la posición especificada
                 makeVisible();
             } else {
-                System.out.println("Posición inválida."); // Mensaje de error si la posición no es válida
+                System.out.println("Ya existe una baldosa en esta posición"); // Mensaje de error si ya hay baldosa en la posición deseada
             }
+        } else {
+            System.out.println("Posición inválida."); // Mensaje de error si la posición no es válida
         }
     }
 
