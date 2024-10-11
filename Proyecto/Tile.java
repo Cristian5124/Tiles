@@ -1,70 +1,67 @@
-import java.awt.*;                                                             //proporciona clases para la creación de interfaces gráficas de usuario (GUI) y para el manejo de gráficos y eventos 
-
 /**
- * la clase Tile Representa una baldosa en el rompecabezas. Utiliza 
- * la clase Rectangle del proyecto shapes para dibujar la baldosa en el Canvas
+ * La clase Tile representa una baldosa en el rompecabezas, hereda de Rectangle
+ * para utilizar sus métodos de dibujo y manipulación.
  * 
  * @author Angie Ramos and Cristian Polo
  * @version 1.0  (08 septiembre 2024)
  */
-
-
-public class Tile {
+public class Tile extends Rectangle {
     private int row;
     private int column;
     private String color;
-    private Rectangle shape;
 
     /**
-     * crea una baldosa con posición, color y tamaño específico
+     * Crea una baldosa con posición, color y tamaño específico.
+     * 
      * @param row fila en la que se ubica la baldosa
      * @param column columna en la que se ubica la baldosa
-     * @param color color de la baldosa 
+     * @param color color de la baldosa
      */
-    public Tile(int row, int column, String color) {          
+    public Tile(int row, int column, String color) {
+        super(); // Llama al constructor de Rectangle
         this.row = row;
         this.column = column;
         this.color = color;
-        this.shape = new Rectangle();
-        this.shape.changeColor(color);
-        this.shape.changeSize(20, 20);                           // Tamaño fijo para las baldosas
-        this.updatePosition();
+        this.changeColor(color); // Cambia el color de la baldosa
+        this.changeSize(30, 30); // Tamaño fijo para las baldosas
+        this.updatePosition(); // Actualiza la posición inicial
     }
 
     /**
-     * Actualiza la posicion de la baldosa segun su columna y fila.
+     * Actualiza la posición de la baldosa según su fila y columna.
      */
     public void updatePosition() {
-        int x = column * 30;                                     // Espaciado entre baldosas
+        int x = column * 30; // Espaciado entre baldosas (asumiendo un tamaño de 30x30)
         int y = row * 30;
-        this.shape.moveTo(x, y);
+        super.moveTo(x, y); // Usa el método de Rectangle para mover
     }
 
     /**
-     * Hace visible la baldosa 
+     * Hace visible la baldosa.
      */
     public void makeVisible() {
-        this.shape.makeVisible();
+        super.makeVisible(); // Llama al método de Rectangle
     }
 
     /**
-     * Hace invisible la baldosa 
+     * Hace invisible la baldosa.
      */
     public void makeInvisible() {
-        this.shape.makeInvisible();
+        super.makeInvisible(); // Llama al método de Rectangle
     }
 
     /**
-     * Actualiza la posicion de la baldosa 
+     * Mueve la baldosa a una nueva posición.
+     * 
      * @param newRow nueva fila en la que se posiciona la baldosa
      * @param newColumn nueva columna a la que se mueve la baldosa
      */
     public void moveTo(int newRow, int newColumn) {
-        this.row = newRow;
-        this.column = newColumn;
-        this.updatePosition();
+        this.row = newRow;      // Actualiza la fila
+        this.column = newColumn; // Actualiza la columna
+        updatePosition();        // Llama a updatePosition para mover la baldosa
     }
-    
+
     /**
      * Obtiene la fila actual en la que se encuentra la baldosa.
      */

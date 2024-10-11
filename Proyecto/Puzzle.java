@@ -86,6 +86,7 @@ public class Puzzle {
         if (row >= 0 && row < h && column >= 0 && column < w) {
             Tile tile = new Tile(row, column, color);
             tiles[row][column] = tile; // Añade la baldosa en la posición especificada
+            makeVisible();
         } else {
             System.out.println("Posición inválida."); // Mensaje de error si la posición no es válida
         }
@@ -100,8 +101,9 @@ public class Puzzle {
     public void deleteTile(int row, int column) {
         if (isValidPosition(row, column)) {
             if (tiles[row][column] != null) {
-                tiles[row][column].makeInvisible();  // Hace invisible la baldosa
+                tiles[row][column].makeInvisible(); // Hace invisible la baldosa
                 tiles[row][column] = null;           // Elimina la baldosa
+                makeVisible();
             } else {
                 System.out.println("No hay baldosa en esta posición."); // Mensaje si no hay baldosa
             }
@@ -128,6 +130,7 @@ public class Puzzle {
                 tile.moveTo(newRow, newColumn); // Mueve la baldosa a la nueva posición
                 tiles[newRow][newColumn] = tile; // Coloca la baldosa en la nueva posición
                 tiles[currentRow][currentColumn] = null;  // Vacía la posición anterior
+                makeVisible();
             } else {
                 System.out.println("No hay baldosa en esta posición."); // Mensaje si no hay baldosa
             }
@@ -207,32 +210,6 @@ public class Puzzle {
         
         return arrangement; // Devuelve la matriz que representa la disposición actual
     }
-
-    /**
-     * Hace visibles todas las baldosas en el rompecabezas.
-     */
-    public void makeVisible() {
-        for (int row = 0; row < h; row++) {
-            for (int col = 0; col < w; col++) {
-                if (tiles[row][col] != null) {
-                    tiles[row][col].makeVisible();  // Hace visible la baldosa
-                }
-            }
-        }
-    }
-    
-    /**
-     * Hace invisibles todas las baldosas en el rompecabezas.
-     */
-    public void makeInvisible() {
-        for (int row = 0; row < h; row++) {
-            for (int col = 0; col < w; col++) {
-                if (tiles[row][col] != null) {
-                    tiles[row][col].makeInvisible();  // Hace invisible la baldosa
-                }
-            }
-        }
-    }
     
     /**
      * Termina el simulador del rompecabezas y reinicia su estado.
@@ -289,6 +266,60 @@ public class Puzzle {
             return tiles[row][column]; // Devuelve la baldosa en la posición especificada
         }
         return null; // Devuelve null si la posición no es válida o no hay baldosa
+    }
+    
+    private void drawBoard() {
+        Canvas canvas = Canvas.getCanvas();
+        for (int row = 0; row < h; row++) {
+            for (int column = 0; column < w; column++) {
+                int x = column * 30;
+                int y = row * 30;
+                // Dibuja un rectángulo vacío para cada celda
+                canvas.drawLine(x, y, x + 30, y); // línea superior
+                canvas.drawLine(x + 30, y, x + 30, y + 30); // derecha
+                canvas.drawLine(x, y + 30, x + 30, y + 30); // inferior
+                canvas.drawLine(x, y, x, y + 30); // izquierda
+            }
+        }
+    }
+
+    /**
+     * Dibuja las baldosas sobre el tablero, superpuestas a las celdas vacías.
+     */
+    public void makeVisible() {
+        Canvas canvas = Canvas.getCanvas();
+        // Dibuja las baldosas
+        for (int row = 0; row < h; row++) {
+            for (int column = 0; column < w; column++) {
+                
+                if (tiles[row][column] != null) {
+                    tiles[row][column].makeVisible(); // Si hay una baldosa, la hace visible
+                }
+                
+                int x = column * 30;
+                int y = row * 30;
+                // Dibuja un rectángulo vacío para cada celda
+                canvas.drawLine(x, y, x + 30, y); // línea superior
+                canvas.drawLine(x + 30, y, x + 30, y + 30); // derecha
+                canvas.drawLine(x, y + 30, x + 30, y + 30); // inferior
+                canvas.drawLine(x, y, x, y + 30); // izquierda
+            }
+        }
+        
+        drawBoard();
+    }
+    
+    /**
+     * Hace invisibles todas las baldosas en el rompecabezas.
+     */
+    public void makeInvisible() {
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
+                if (tiles[row][col] != null) {
+                    tiles[row][col].makeInvisible();  // Hace invisible la baldosa
+                }
+            }
+        }
     }
 
 }

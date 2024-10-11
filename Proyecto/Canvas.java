@@ -63,9 +63,10 @@ public class Canvas{
     }
     
     public void drawLine(int x1, int y1, int x2, int y2) {
-    graphic.drawLine(x1, y1, x2, y2);
-    canvas.repaint();  // Redibuja el canvas para que se vean los cambios
-}
+        graphic.setColor(Color.BLACK);
+        graphic.drawLine(x1, y1, x2, y2);
+        canvas.repaint();  // Redibuja el canvas para que se vean los cambios
+    }
 
     /**
      * Set the canvas visibility and brings canvas to the front of screen

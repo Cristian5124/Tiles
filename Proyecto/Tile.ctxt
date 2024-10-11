@@ -1,21 +1,21 @@
 #BlueJ class context
 comment0.target=Tile
-comment0.text=\r\n\ la\ clase\ Tile\ Representa\ una\ baldosa\ en\ el\ rompecabezas.\ Utiliza\ \r\n\ la\ clase\ Rectangle\ del\ proyecto\ shapes\ para\ dibujar\ la\ baldosa\ en\ el\ Canvas\r\n\ \r\n\ @author\ Angie\ Ramos\ and\ Cristian\ Polo\r\n\ @version\ 1.0\ \ (08\ septiembre\ 2024)\r\n
+comment0.text=\r\n\ La\ clase\ Tile\ representa\ una\ baldosa\ en\ el\ rompecabezas,\ hereda\ de\ Rectangle\r\n\ para\ utilizar\ sus\ m\u00E9todos\ de\ dibujo\ y\ manipulaci\u00F3n.\r\n\ \r\n\ @author\ Angie\ Ramos\ and\ Cristian\ Polo\r\n\ @version\ 1.0\ \ (08\ septiembre\ 2024)\r\n
 comment1.params=row\ column\ color
 comment1.target=Tile(int,\ int,\ java.lang.String)
-comment1.text=\r\n\ crea\ una\ baldosa\ con\ posici\u00F3n,\ color\ y\ tama\u00F1o\ espec\u00EDfico\r\n\ @param\ row\ fila\ en\ la\ que\ se\ ubica\ la\ baldosa\r\n\ @param\ column\ columna\ en\ la\ que\ se\ ubica\ la\ baldosa\r\n\ @param\ color\ color\ de\ la\ baldosa\ \r\n
+comment1.text=\r\n\ Crea\ una\ baldosa\ con\ posici\u00F3n,\ color\ y\ tama\u00F1o\ espec\u00EDfico.\r\n\ \r\n\ @param\ row\ fila\ en\ la\ que\ se\ ubica\ la\ baldosa\r\n\ @param\ column\ columna\ en\ la\ que\ se\ ubica\ la\ baldosa\r\n\ @param\ color\ color\ de\ la\ baldosa\r\n
 comment2.params=
 comment2.target=void\ updatePosition()
-comment2.text=\r\n\ Actualiza\ la\ posicion\ de\ la\ baldosa\ segun\ su\ columna\ y\ fila.\r\n
+comment2.text=\r\n\ Actualiza\ la\ posici\u00F3n\ de\ la\ baldosa\ seg\u00FAn\ su\ fila\ y\ columna.\r\n
 comment3.params=
 comment3.target=void\ makeVisible()
-comment3.text=\r\n\ Hace\ visible\ la\ baldosa\ \r\n
+comment3.text=\r\n\ Hace\ visible\ la\ baldosa.\r\n
 comment4.params=
 comment4.target=void\ makeInvisible()
-comment4.text=\r\n\ Hace\ invisible\ la\ baldosa\ \r\n
+comment4.text=\r\n\ Hace\ invisible\ la\ baldosa.\r\n
 comment5.params=newRow\ newColumn
 comment5.target=void\ moveTo(int,\ int)
-comment5.text=\r\n\ Actualiza\ la\ posicion\ de\ la\ baldosa\ \r\n\ @param\ newRow\ nueva\ fila\ en\ la\ que\ se\ posiciona\ la\ baldosa\r\n\ @param\ newColumn\ nueva\ columna\ a\ la\ que\ se\ mueve\ la\ baldosa\r\n
+comment5.text=\r\n\ Mueve\ la\ baldosa\ a\ una\ nueva\ posici\u00F3n.\r\n\ \r\n\ @param\ newRow\ nueva\ fila\ en\ la\ que\ se\ posiciona\ la\ baldosa\r\n\ @param\ newColumn\ nueva\ columna\ a\ la\ que\ se\ mueve\ la\ baldosa\r\n
 comment6.params=
 comment6.target=int\ getRow()
 comment6.text=\r\n\ Obtiene\ la\ fila\ actual\ en\ la\ que\ se\ encuentra\ la\ baldosa.\r\n
